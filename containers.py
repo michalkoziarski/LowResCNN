@@ -10,7 +10,9 @@ class ValidationSet:
     def __init__(self, image_dir=os.path.join(os.path.dirname(__file__), 'data', 'ILSVRC2012_img_val'),
                  labels_path=os.path.join(os.path.dirname(__file__), 'data', 'ILSVRC2012_validation_ground_truth.txt'),
                  scaling_factor=1, size=(224, 224)):
+        print(image_dir,labels_path)
         assert os.path.exists(image_dir)
+
         assert os.path.exists(labels_path)
 
         self.image_dir = image_dir

@@ -1,6 +1,8 @@
 import os
 import numpy as np
-import tensorflow as tf
+# import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 from abc import ABC, abstractmethod
 
@@ -150,7 +152,7 @@ class AlexNet(Network):
             fully_connected('fc8', [4096, 1000], activation=tf.nn.softmax)
 
     def load(self, session):
-        weights = np.load(os.path.join(os.path.dirname(__file__), 'models', 'AlexNet.npy'), encoding='latin1').item()
+        weights = np.load(os.path.join(os.path.dirname(__file__), 'models', 'AlexNet.npy'), allow_pickle=True, encoding='latin1').item()
 
         for key in weights.keys():
             session.run(self.variables['%s_W' % key].assign(weights[key][0]))
@@ -186,7 +188,7 @@ class VGGNet(Network):
             fully_connected('fc8', [4096, 1000], activation=tf.nn.softmax)
 
     def load(self, session):
-        weights = np.load(os.path.join(os.path.dirname(__file__), 'models', 'VGGNet16.npz'))
+        weights = np.load(os.path.join(os.path.dirname(__file__), 'models', 'VGGNet16.npz'), allow_pickle=True)
 
         for key in weights.keys():
             session.run(self.variables[key].assign(weights[key]))
